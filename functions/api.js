@@ -28,19 +28,19 @@ const list = [
 ]
 
 //get all users
-router.get('/v1/tasks', (req, res) => {
+router.get('/tasks', (req, res) => {
     res.send(list);
 });
 
 //get single user
-router.get('/v1/tasks/:id', (req, res) => {
+router.get('/tasks/:id', (req, res) => {
     if(!req.params.id) return res.status(400).send('ID is required');
     const task = list.find(item => item.id == req.params.id);
     res.send(task);
 });
 
 //Add a new User
-router.post('/v1/tasks/add', (req, res) => {
+router.post('/tasks/add', (req, res) => {
     if(!req.body.name) return res.status(400).send("name is required.");
     const newTodo = {
         id:list.length+1,
@@ -51,7 +51,7 @@ router.post('/v1/tasks/add', (req, res) => {
 });
 
 //Update a user
-router.put('/v1/tasks/update', (req, res) => {
+router.put('/tasks/update', (req, res) => {
     if(!req.body.id) return res.status(400).send("Missing ID!");
     const index = list.find(n => n.id === parseInt(req.body.id));
     if(!index) return res.status(400).send("ID doesn't exist");
@@ -60,11 +60,11 @@ router.put('/v1/tasks/update', (req, res) => {
 });
 
 //Delete a user
-router.delete('/api/v1/tasks/delete/:id',(req, res) => {
+router.delete('/tasks/delete/:id',(req, res) => {
     if(!req.params.id) return res.status(400).send("Missing ID")
     const index = list.find(n => n.id === parseInt(req.params.id))
     res.send(index)
 })
 
-app.use('/',router)
+app.use('/api',router)
 module.exports.handler = serverless(app)
