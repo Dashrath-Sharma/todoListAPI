@@ -40,7 +40,7 @@ router.get('/tasks/:id', (req, res) => {
 });
 
 //Add a new User
-router.post('/tasks/add', (req, res) => {
+router.post('/tasks', (req, res) => {
     if(!req.body.name) return res.status(400).send("name is required.");
     const newTodo = {
         id:list.length+1,
@@ -51,7 +51,7 @@ router.post('/tasks/add', (req, res) => {
 });
 
 //Update a user
-router.put('/tasks/update', (req, res) => {
+router.put('/tasks', (req, res) => {
     if(!req.body.id) return res.status(400).send("Missing ID!");
     const index = list.find(n => n.id === parseInt(req.body.id));
     if(!index) return res.status(400).send("ID doesn't exist");
@@ -60,7 +60,7 @@ router.put('/tasks/update', (req, res) => {
 });
 
 //Delete a user
-router.delete('/tasks/delete/:id',(req, res) => {
+router.delete('/tasks/:id',(req, res) => {
     if(!req.params.id) return res.status(400).send("Missing ID")
     const index = list.find(n => n.id === parseInt(req.params.id))
     res.send(index)
