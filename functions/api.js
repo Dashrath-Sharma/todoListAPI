@@ -27,19 +27,19 @@ const list = [
     },
 ]
 
-//get all users
+//get all Tasks
 router.get('/tasks', (req, res) => {
     res.send(list);
 });
 
-//get single user
+//get single Task
 router.get('/tasks/:id', (req, res) => {
     if(!req.params.id) return res.status(400).send('ID is required');
     const task = list.find(item => item.id == req.params.id);
     res.send(task);
 });
 
-//Add a new User
+//Add a new Task
 router.post('/tasks', (req, res) => {
     if(!req.body.name) return res.status(400).send("name is required.");
     const newTodo = {
@@ -50,7 +50,7 @@ router.post('/tasks', (req, res) => {
     res.send(list[list.length-1]);
 });
 
-//Update a user
+//Update a Task
 router.put('/tasks', (req, res) => {
     if(!req.body.id) return res.status(400).send("Missing ID!");
     const index = list.find(n => n.id === parseInt(req.body.id));
@@ -59,7 +59,7 @@ router.put('/tasks', (req, res) => {
     res.send(index);
 });
 
-//Delete a user
+//Delete a Task
 router.delete('/tasks/:id',(req, res) => {
     if(!req.params.id) return res.status(400).send("Missing ID")
     const index = list.find(n => n.id === parseInt(req.params.id))
